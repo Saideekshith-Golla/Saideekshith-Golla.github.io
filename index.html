@@ -346,6 +346,53 @@
       flex-shrink: 0;
     }
 
+    /* ── BLOG ─────────────────────────────────────────────────── */
+    #blog { background: var(--ink); border-top: 1px solid rgba(0,102,255,0.12); }
+    .blog-intro {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+      line-height: 1.65;
+    }
+    .blog-card {
+      display: grid;
+      gap: 1rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,102,255,0.2);
+      background: linear-gradient(135deg, rgba(0,102,255,0.08), rgba(255,255,255,0.02));
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
+    .blog-card:hover {
+      border-color: rgba(0,212,255,0.45);
+      background: linear-gradient(135deg, rgba(0,102,255,0.14), rgba(0,212,255,0.05));
+      transform: translateY(-2px);
+    }
+    .blog-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--pulse);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .blog-card h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .blog-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.7;
+      max-width: 760px;
+    }
+    .blog-link {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--cloud);
+    }
+
     /* ── CONTACT ───────────────────────────────────────────────── */
     #contact { background: var(--ink); border-top: 1px solid rgba(0,102,255,0.15); }
 
@@ -465,6 +512,7 @@
 <nav>
   <div class="nav-logo">Sai Deekshith Golla</div>
   <ul class="nav-links">
+    <li><a href="#blog">Blog</a></li>
     <li><a href="#expertise">Expertise</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#topics">Discuss</a></li>
@@ -483,6 +531,7 @@
       to AI/ML pipelines, I architect systems that don't break at 3 AM.
     </p>
     <div class="hero-ctas">
+      <a href="jfrog_blog.html" class="btn btn-ghost">Read the latest blog</a>
       <a href="#contact" class="btn btn-primary">↗ Get in touch</a>
       <a href="#topics" class="btn btn-ghost">Browse discussion topics</a>
     </div>
@@ -687,6 +736,27 @@
       <div class="topic-pill"><span class="topic-dot"></span>DevSecOps & supply chain security</div>
     </div>
     <a href="#contact" class="btn btn-primary">Start a conversation →</a>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="max-w">
+    <div class="section-tag">// recent writing</div>
+    <h2>Blog</h2>
+    <p class="blog-intro">
+      Practical notes from hands-on platform engineering work, with a focus on Kubernetes,
+      DevSecOps, and production-grade cloud delivery.
+    </p>
+    <a href="jfrog_blog.html" class="blog-card">
+      <div class="blog-meta">Featured article</div>
+      <h3>Deploying JFrog Artifactory &amp; Xray on AKS</h3>
+      <p>
+        A deployment walkthrough covering how to run JFrog Artifactory and Xray on Azure Kubernetes Service,
+        including ingress, storage, security scanning, and production-minded operational considerations.
+      </p>
+      <span class="blog-link">Open article →</span>
+    </a>
   </div>
 </section>
 
