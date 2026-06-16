@@ -441,6 +441,158 @@
   .arch-card-title { font-size: 9.5pt; font-weight: 600; color: var(--white); }
   .arch-card-sub   { font-size: 8pt; color: var(--muted); margin-top: 4px; }
 
+  .diagram-panel {
+    margin: 22px 0;
+    padding: 24px;
+    border: 1px solid rgba(0, 102, 255, 0.2);
+    background: linear-gradient(180deg, rgba(13, 17, 23, 0.98), rgba(18, 28, 40, 0.92));
+  }
+
+  .diagram-title {
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pulse);
+  }
+
+  .diagram-subtitle {
+    margin-bottom: 18px;
+    max-width: none;
+    color: rgba(244, 248, 251, 0.68);
+  }
+
+  .diagram-stack {
+    display: grid;
+    gap: 14px;
+  }
+
+  .diagram-lane {
+    display: grid;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .diagram-lane-top {
+    grid-template-columns: 1fr 80px 1.2fr;
+  }
+
+  .diagram-lane-bottom {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .diagram-box {
+    padding: 18px 16px;
+    border: 1px solid rgba(0, 102, 255, 0.22);
+    background: rgba(11, 16, 24, 0.92);
+    min-height: 118px;
+  }
+
+  .diagram-box.cluster {
+    border-color: rgba(0, 212, 255, 0.28);
+    background: linear-gradient(180deg, rgba(0, 102, 255, 0.08), rgba(8, 14, 22, 0.95));
+  }
+
+  .diagram-box.external {
+    background: rgba(19, 28, 38, 0.9);
+  }
+
+  .diagram-box h3 {
+    margin: 0 0 6px;
+    font-size: 10pt;
+  }
+
+  .diagram-box p {
+    margin: 0;
+    font-size: 9pt;
+    color: rgba(244, 248, 251, 0.68);
+    max-width: none;
+  }
+
+  .diagram-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-family: var(--mono);
+    font-size: 7pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cloud);
+  }
+
+  .diagram-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 8pt;
+    color: var(--pulse);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .diagram-arrow::before {
+    content: '-------->';
+  }
+
+  .diagram-cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .diagram-pod {
+    padding: 14px 12px;
+    border: 1px solid rgba(0, 212, 255, 0.18);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .diagram-pod-title {
+    font-family: var(--mono);
+    font-size: 7.8pt;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .diagram-pod-sub {
+    margin-top: 6px;
+    font-size: 8.4pt;
+    color: var(--muted);
+  }
+
+  .diagram-notes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .diagram-note {
+    padding: 12px 14px;
+    border: 1px solid rgba(0, 102, 255, 0.16);
+    background: rgba(0, 102, 255, 0.05);
+    font-size: 8.6pt;
+    color: rgba(244, 248, 251, 0.74);
+  }
+
+  .diagram-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid rgba(0, 102, 255, 0.18);
+    background: radial-gradient(circle at top, rgba(0, 102, 255, 0.08), rgba(13, 17, 23, 0.98) 42%);
+  }
+
+  .diagram-legend {
+    margin-top: 16px;
+    font-size: 9pt;
+    color: rgba(244, 248, 251, 0.7);
+    max-width: none;
+  }
+
   .phase-badge {
     display: inline-block;
     font-family: var(--mono);
@@ -507,6 +659,22 @@
     .toc,
     section {
       padding: 24px 20px;
+    }
+
+    .diagram-lane-top,
+    .diagram-lane-bottom,
+    .diagram-notes,
+    .diagram-cluster-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .diagram-arrow {
+      min-height: 32px;
+    }
+
+    .diagram-arrow::before {
+      content: 'v';
+      font-size: 12pt;
     }
   }
 
@@ -599,31 +767,114 @@
     <div class="section-tag">System Design</div>
     <h2>Architecture overview</h2>
     <p>This setup uses a layered architecture that keeps stateful services outside of Kubernetes, improving reliability and simplifying database management.</p>
-    <div class="arch-grid">
-      <div class="arch-card">
-        <div class="arch-card-icon">☸️</div>
-        <div class="arch-card-title">AKS Cluster</div>
-        <div class="arch-card-sub">Artifactory + Xray pods</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🗄️</div>
-        <div class="arch-card-title">Azure PostgreSQL</div>
-        <div class="arch-card-sub">PaaS flexible server</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">☁️</div>
-        <div class="arch-card-title">Blob Storage</div>
-        <div class="arch-card-sub">Artifact binarystore</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🔒</div>
-        <div class="arch-card-title">Nginx Ingress</div>
-        <div class="arch-card-sub">Internal load balancer</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-card-icon">🛡️</div>
-        <div class="arch-card-title">Azure AD SAML</div>
-        <div class="arch-card-sub">SSO authentication</div>
+    <div class="diagram-panel">
+      <div class="diagram-title">Internal JFrog topology</div>
+      <p class="diagram-subtitle">This version mirrors the reference diagram style: a single system map with ingress at the edge, JFrog pods inside AKS, and managed Azure services outside the cluster boundary.</p>
+      <svg class="diagram-svg" viewBox="0 0 1120 620" role="img" aria-labelledby="jfrog-arch-title jfrog-arch-desc">
+        <title id="jfrog-arch-title">JFrog internal architecture on AKS</title>
+        <desc id="jfrog-arch-desc">Internal clients access JFrog through a private Azure load balancer and nginx ingress controller. Artifactory and Xray pods run in AKS and connect to Azure Database for PostgreSQL Flexible Server and Azure Blob Storage. CI/CD publishes images to Azure Container Registry and deploys with Helm.</desc>
+
+        <defs>
+          <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <polygon points="0 0, 6 3, 0 6" fill="#d9e7ff"></polygon>
+          </marker>
+          <marker id="arrowhead-soft" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <polygon points="0 0, 6 3, 0 6" fill="#7b8a99"></polygon>
+          </marker>
+        </defs>
+
+        <text x="600" y="44" fill="#f4f8fb" font-size="28" font-family="IBM Plex Sans, sans-serif" font-weight="700" text-anchor="middle">Azure Kubernetes Service (AKS)</text>
+
+        <rect x="72" y="180" width="150" height="88" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="147" y="216" fill="#00d4ff" font-size="15" font-family="IBM Plex Mono, monospace" text-anchor="middle">Private users</text>
+        <text x="147" y="242" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Client apps</text>
+
+        <rect x="268" y="180" width="172" height="88" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="354" y="216" fill="#00d4ff" font-size="15" font-family="IBM Plex Mono, monospace" text-anchor="middle">Private entry</text>
+        <text x="354" y="242" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Azure Load Balancer</text>
+
+        <line x1="222" y1="224" x2="268" y2="224" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+
+        <rect x="470" y="90" width="500" height="380" rx="16" fill="rgba(10, 20, 31, 0.65)" stroke="#00d4ff" stroke-width="2.5" stroke-dasharray="10 8"></rect>
+        <text x="500" y="126" fill="#00d4ff" font-size="16" font-family="IBM Plex Mono, monospace">AKS cluster / virtual network</text>
+
+        <rect x="490" y="142" width="128" height="250" rx="8" fill="#0f1722" stroke="#3f5c7d"></rect>
+        <text x="554" y="176" fill="#f4f8fb" font-size="20" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Front end</text>
+        <text x="554" y="206" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Namespace</text>
+        <circle cx="554" cy="274" r="34" fill="#ffffff" opacity="0.92"></circle>
+        <circle cx="554" cy="274" r="22" fill="#0f6a40"></circle>
+        <text x="554" y="281" fill="#ffffff" font-size="25" font-family="IBM Plex Sans, sans-serif" font-weight="700" text-anchor="middle">N</text>
+        <text x="554" y="332" fill="#f4f8fb" font-size="19" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Ingress</text>
+        <text x="554" y="356" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">nginx controller</text>
+
+        <rect x="630" y="142" width="318" height="160" rx="8" fill="#0f1722" stroke="#3f5c7d"></rect>
+        <text x="789" y="176" fill="#f4f8fb" font-size="20" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Back-end services</text>
+        <text x="664" y="206" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace">Namespace</text>
+
+        <rect x="670" y="224" width="102" height="58" rx="8" fill="#1f3d5c" stroke="#7db3ff"></rect>
+        <text x="721" y="248" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Pod group</text>
+        <text x="721" y="268" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Artifactory</text>
+
+        <rect x="806" y="224" width="102" height="58" rx="8" fill="#1f3d5c" stroke="#7db3ff"></rect>
+        <text x="857" y="248" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Pod group</text>
+        <text x="857" y="268" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Xray</text>
+
+        <rect x="630" y="316" width="318" height="130" rx="8" fill="#0f1722" stroke="#3f5c7d"></rect>
+        <text x="789" y="350" fill="#f4f8fb" font-size="20" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Platform integration</text>
+        <text x="664" y="380" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace">Namespace / support services</text>
+        <rect x="674" y="392" width="120" height="34" rx="6" fill="#11293f" stroke="#2a7ad7"></rect>
+        <text x="734" y="414" fill="#f4f8fb" font-size="15" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">ClusterIP svc</text>
+        <rect x="810" y="392" width="118" height="34" rx="6" fill="#11293f" stroke="#2a7ad7"></rect>
+        <text x="869" y="414" fill="#f4f8fb" font-size="15" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Secrets / config</text>
+
+        <line x1="440" y1="224" x2="490" y2="224" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+        <line x1="588" y1="274" x2="670" y2="253" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+        <line x1="772" y1="253" x2="806" y2="253" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+
+        <text x="1018" y="126" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">External data stores</text>
+
+        <rect x="982" y="172" width="112" height="92" rx="12" fill="#123c74" stroke="#7db3ff"></rect>
+        <text x="1038" y="210" fill="#d9e7ff" font-size="16" font-family="IBM Plex Mono, monospace" text-anchor="middle">PaaS DB</text>
+        <text x="1038" y="238" fill="#ffffff" font-size="22" font-family="IBM Plex Sans, sans-serif" font-weight="700" text-anchor="middle">PostgreSQL</text>
+
+        <rect x="982" y="304" width="112" height="92" rx="12" fill="#0c4b63" stroke="#6ef7cf"></rect>
+        <text x="1038" y="342" fill="#6ef7cf" font-size="16" font-family="IBM Plex Mono, monospace" text-anchor="middle">Storage</text>
+        <text x="1038" y="370" fill="#ffffff" font-size="22" font-family="IBM Plex Sans, sans-serif" font-weight="700" text-anchor="middle">Blob</text>
+
+        <line x1="772" y1="253" x2="982" y2="218" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+        <line x1="908" y1="253" x2="982" y2="350" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+
+        <rect x="80" y="430" width="172" height="110" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="166" y="464" fill="#00d4ff" font-size="15" font-family="IBM Plex Mono, monospace" text-anchor="middle">CI / CD</text>
+        <text x="166" y="492" fill="#f4f8fb" font-size="22" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Azure DevOps</text>
+        <text x="166" y="518" fill="#7b8a99" font-size="14" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Helm deploys</text>
+
+        <rect x="302" y="430" width="172" height="110" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="388" y="464" fill="#00d4ff" font-size="15" font-family="IBM Plex Mono, monospace" text-anchor="middle">Container registry</text>
+        <text x="388" y="492" fill="#f4f8fb" font-size="22" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Azure ACR</text>
+        <text x="388" y="518" fill="#7b8a99" font-size="14" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Image pull source</text>
+
+        <line x1="252" y1="485" x2="302" y2="485" stroke="#7b8a99" stroke-width="1.8" stroke-dasharray="7 7" marker-end="url(#arrowhead-soft)"></line>
+        <line x1="474" y1="485" x2="594" y2="485" stroke="#7b8a99" stroke-width="1.8" stroke-dasharray="7 7" marker-end="url(#arrowhead-soft)"></line>
+        <text x="274" y="474" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace">docker push</text>
+        <text x="510" y="474" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace">helm upgrade / image pull</text>
+
+        <rect x="636" y="500" width="130" height="54" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="701" y="522" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Identity</text>
+        <text x="701" y="542" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Entra ID SAML</text>
+
+        <rect x="792" y="500" width="124" height="54" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="854" y="522" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Secrets</text>
+        <text x="854" y="542" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Key Vault</text>
+
+        <line x1="701" y1="500" x2="760" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
+        <line x1="854" y1="500" x2="854" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
+      </svg>
+      <p class="diagram-legend">Flow summary: internal clients reach the private load balancer, nginx ingress routes requests into Artifactory, and Xray integrates through Artifactory while both workloads depend on Azure Database for PostgreSQL Flexible Server and Azure Blob Storage for durable state.</p>
+      <div class="diagram-notes">
+        <div class="diagram-note"><strong>Ingress path:</strong> Private DNS -&gt; internal Azure Load Balancer -&gt; nginx ingress controller -&gt; JFrog ClusterIP services.</div>
+        <div class="diagram-note"><strong>Compute layer:</strong> Artifactory and Xray stay in AKS as pods, while internal PostgreSQL and bundled nginx remain disabled.</div>
+        <div class="diagram-note"><strong>State layer:</strong> Azure PostgreSQL Flexible Server and Azure Blob Storage keep persistence outside the cluster boundary.</div>
       </div>
     </div>
     <p>JFrog's internal PostgreSQL and Nginx are both disabled. All traffic is routed through an nginx ingress controller backed by an Azure internal load balancer, ensuring no public exposure.</p>
