@@ -772,7 +772,7 @@
       <p class="diagram-subtitle">This version mirrors the reference diagram style: a single system map with ingress at the edge, JFrog pods inside AKS, and managed Azure services outside the cluster boundary.</p>
       <svg class="diagram-svg" viewBox="0 0 1120 620" role="img" aria-labelledby="jfrog-arch-title jfrog-arch-desc">
         <title id="jfrog-arch-title">JFrog internal architecture on AKS</title>
-        <desc id="jfrog-arch-desc">Internal clients access JFrog through a private Azure load balancer and nginx ingress controller. Artifactory and Xray pods run in AKS, with Xray integrating through Artifactory. Artifactory stores artifacts in Azure Blob Storage, Xray uses Azure Database for PostgreSQL Flexible Server, and Azure DevOps deploys directly with Helm.</desc>
+        <desc id="jfrog-arch-desc">Internal clients access JFrog through a private Azure load balancer and nginx ingress controller. Artifactory and Xray pods run in AKS, with Xray integrating through Artifactory. Artifactory stores artifacts in Azure Blob Storage, Xray uses Azure Database for PostgreSQL Flexible Server, Azure DevOps deploys directly with Helm, and Wiz performs DevSecOps vulnerability scanning on the AKS cluster.</desc>
 
         <defs>
           <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
@@ -860,13 +860,18 @@
         <text x="854" y="522" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Secrets</text>
         <text x="854" y="542" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Key Vault</text>
 
+        <rect x="944" y="500" width="124" height="54" rx="8" fill="#16202b" stroke="#2e4055"></rect>
+        <text x="1006" y="522" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">DevSecOps</text>
+        <text x="1006" y="542" fill="#f4f8fb" font-size="18" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Wiz</text>
+
         <line x1="701" y1="500" x2="760" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
         <line x1="854" y1="500" x2="854" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
+        <line x1="1006" y1="500" x2="928" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
       </svg>
-      <p class="diagram-legend">Flow summary: internal clients reach the private load balancer, nginx ingress routes requests into Artifactory, Xray integrates through Artifactory, Artifactory writes binaries to Blob Storage, Xray uses PostgreSQL, and Azure DevOps deploys directly to AKS with Helm charts.</p>
+      <p class="diagram-legend">Flow summary: internal clients reach the private load balancer, nginx ingress routes requests into Artifactory, Xray integrates through Artifactory, Artifactory writes binaries to Blob Storage, Xray uses PostgreSQL, Azure DevOps deploys directly to AKS with Helm charts, and Wiz scans the cluster as part of the DevSecOps control plane.</p>
       <div class="diagram-notes">
         <div class="diagram-note"><strong>Ingress path:</strong> Private DNS -&gt; internal Azure Load Balancer -&gt; nginx ingress controller -&gt; JFrog ClusterIP services.</div>
-        <div class="diagram-note"><strong>Compute layer:</strong> Artifactory and Xray stay in AKS as pods, while internal PostgreSQL and bundled nginx remain disabled.</div>
+        <div class="diagram-note"><strong>Compute layer:</strong> Artifactory and Xray stay in AKS as pods, while internal PostgreSQL and bundled nginx remain disabled. Wiz adds DevSecOps vulnerability scanning across the cluster.</div>
         <div class="diagram-note"><strong>State layer:</strong> Xray uses Azure PostgreSQL Flexible Server and Artifactory stores binaries in Azure Blob Storage outside the cluster boundary.</div>
       </div>
     </div>
