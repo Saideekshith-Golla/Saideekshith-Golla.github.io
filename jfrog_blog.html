@@ -772,7 +772,7 @@
       <p class="diagram-subtitle">This version mirrors the reference diagram style: a single system map with ingress at the edge, JFrog pods inside AKS, and managed Azure services outside the cluster boundary.</p>
       <svg class="diagram-svg" viewBox="0 0 1120 620" role="img" aria-labelledby="jfrog-arch-title jfrog-arch-desc">
         <title id="jfrog-arch-title">JFrog internal architecture on AKS</title>
-        <desc id="jfrog-arch-desc">Internal clients access JFrog through a private Azure load balancer and nginx ingress controller. Artifactory and Xray pods run in AKS and connect to Azure Database for PostgreSQL Flexible Server and Azure Blob Storage. CI/CD publishes images to Azure Container Registry and deploys with Helm.</desc>
+        <desc id="jfrog-arch-desc">Internal clients access JFrog through a private Azure load balancer and nginx ingress controller. Artifactory and Xray pods run in AKS, with Xray integrating through Artifactory. Artifactory stores artifacts in Azure Blob Storage, Xray uses Azure Database for PostgreSQL Flexible Server, and Azure DevOps deploys directly with Helm.</desc>
 
         <defs>
           <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
@@ -841,23 +841,16 @@
         <text x="1038" y="342" fill="#6ef7cf" font-size="16" font-family="IBM Plex Mono, monospace" text-anchor="middle">Storage</text>
         <text x="1038" y="370" fill="#ffffff" font-size="22" font-family="IBM Plex Sans, sans-serif" font-weight="700" text-anchor="middle">Blob</text>
 
-        <line x1="772" y1="253" x2="982" y2="218" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
-        <line x1="908" y1="253" x2="982" y2="350" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+        <line x1="908" y1="253" x2="982" y2="218" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
+        <line x1="772" y1="253" x2="982" y2="350" stroke="#d9e7ff" stroke-width="2" marker-end="url(#arrowhead)"></line>
 
         <rect x="80" y="430" width="172" height="110" rx="8" fill="#16202b" stroke="#2e4055"></rect>
         <text x="166" y="464" fill="#00d4ff" font-size="15" font-family="IBM Plex Mono, monospace" text-anchor="middle">CI / CD</text>
         <text x="166" y="492" fill="#f4f8fb" font-size="22" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Azure DevOps</text>
         <text x="166" y="518" fill="#7b8a99" font-size="14" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Helm deploys</text>
 
-        <rect x="302" y="430" width="172" height="110" rx="8" fill="#16202b" stroke="#2e4055"></rect>
-        <text x="388" y="464" fill="#00d4ff" font-size="15" font-family="IBM Plex Mono, monospace" text-anchor="middle">Container registry</text>
-        <text x="388" y="492" fill="#f4f8fb" font-size="22" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Azure ACR</text>
-        <text x="388" y="518" fill="#7b8a99" font-size="14" font-family="IBM Plex Sans, sans-serif" text-anchor="middle">Image pull source</text>
-
-        <line x1="252" y1="485" x2="302" y2="485" stroke="#7b8a99" stroke-width="1.8" stroke-dasharray="7 7" marker-end="url(#arrowhead-soft)"></line>
-        <line x1="474" y1="485" x2="594" y2="485" stroke="#7b8a99" stroke-width="1.8" stroke-dasharray="7 7" marker-end="url(#arrowhead-soft)"></line>
-        <text x="274" y="474" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace">docker push</text>
-        <text x="510" y="474" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace">helm upgrade / image pull</text>
+        <line x1="252" y1="485" x2="594" y2="485" stroke="#7b8a99" stroke-width="1.8" stroke-dasharray="7 7" marker-end="url(#arrowhead-soft)"></line>
+        <text x="388" y="474" fill="#7b8a99" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">helm upgrade with jfrog charts</text>
 
         <rect x="636" y="500" width="130" height="54" rx="8" fill="#16202b" stroke="#2e4055"></rect>
         <text x="701" y="522" fill="#00d4ff" font-size="13" font-family="IBM Plex Mono, monospace" text-anchor="middle">Identity</text>
@@ -870,11 +863,11 @@
         <line x1="701" y1="500" x2="760" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
         <line x1="854" y1="500" x2="854" y2="446" stroke="#7b8a99" stroke-width="1.8" marker-end="url(#arrowhead-soft)"></line>
       </svg>
-      <p class="diagram-legend">Flow summary: internal clients reach the private load balancer, nginx ingress routes requests into Artifactory, and Xray integrates through Artifactory while both workloads depend on Azure Database for PostgreSQL Flexible Server and Azure Blob Storage for durable state.</p>
+      <p class="diagram-legend">Flow summary: internal clients reach the private load balancer, nginx ingress routes requests into Artifactory, Xray integrates through Artifactory, Artifactory writes binaries to Blob Storage, Xray uses PostgreSQL, and Azure DevOps deploys directly to AKS with Helm charts.</p>
       <div class="diagram-notes">
         <div class="diagram-note"><strong>Ingress path:</strong> Private DNS -&gt; internal Azure Load Balancer -&gt; nginx ingress controller -&gt; JFrog ClusterIP services.</div>
         <div class="diagram-note"><strong>Compute layer:</strong> Artifactory and Xray stay in AKS as pods, while internal PostgreSQL and bundled nginx remain disabled.</div>
-        <div class="diagram-note"><strong>State layer:</strong> Azure PostgreSQL Flexible Server and Azure Blob Storage keep persistence outside the cluster boundary.</div>
+        <div class="diagram-note"><strong>State layer:</strong> Xray uses Azure PostgreSQL Flexible Server and Artifactory stores binaries in Azure Blob Storage outside the cluster boundary.</div>
       </div>
     </div>
     <p>JFrog's internal PostgreSQL and Nginx are both disabled. All traffic is routed through an nginx ingress controller backed by an Azure internal load balancer, ensuring no public exposure.</p>
