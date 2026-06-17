@@ -5,833 +5,1152 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sai Deekshith Golla – Cloud & DevOps Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
   <style>
-    /* ── TOKENS ──────────────────────────────────────────────── */
     :root {
-      --ink:       #0d1117;
-      --ink-soft:  #1c2733;
-      --muted:     #5a6a7a;
-      --line:      #1e3a5f;
-      --cloud:     #0066ff;
-      --cloud-dim: #003d99;
-      --pulse:     #00d4ff;
-      --surface:   #f0f4f8;
-      --white:     #ffffff;
-      --mono: 'IBM Plex Mono', monospace;
-      --sans: 'IBM Plex Sans', sans-serif;
+      /* Warm, calming dark palette */
+      --bg-deep:       #0c0f12;
+      --bg-primary:    #12161b;
+      --bg-elevated:   #1a1f26;
+      --bg-card:       #1e242c;
+      
+      /* Soft text hierarchy */
+      --text-primary:  #e8e6e3;
+      --text-secondary: #9ca3af;
+      --text-muted:    #6b7280;
+      
+      /* Calm accent - muted sage/teal */
+      --accent:        #7c9a92;
+      --accent-soft:   rgba(124, 154, 146, 0.15);
+      --accent-glow:   rgba(124, 154, 146, 0.08);
+      
+      /* Soft borders */
+      --border:        rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(124, 154, 146, 0.2);
+      
+      /* Typography */
+      --serif: 'Source Serif 4', Georgia, serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      
+      /* Smooth transitions */
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 0.4s var(--ease);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
-      background: var(--ink);
-      color: var(--white);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* ── NAV ──────────────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 3rem;
-      background: rgba(13,17,23,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,102,255,0.15);
+    /* Subtle ambient background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(124, 154, 146, 0.03), transparent);
+      pointer-events: none;
+      z-index: -1;
     }
-    .nav-logo {
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      color: var(--pulse);
-      letter-spacing: 0.08em;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--pulse); }
 
-    /* ── HERO ─────────────────────────────────────────────────── */
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-deep);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(12, 15, 18, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ── HERO ────────────────────────────────────────────────── */
     .hero {
       min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 8rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem;
       position: relative;
-      overflow: hidden;
     }
 
-    /* animated grid background */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,102,255,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,102,255,0.07) 1px, transparent 1px);
-      background-size: 48px 48px;
-      animation: gridDrift 20s linear infinite;
-    }
-    @keyframes gridDrift {
-      from { background-position: 0 0; }
-      to   { background-position: 48px 48px; }
-    }
-
-    /* radial glow */
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 55% at 70% 50%, rgba(0,102,255,0.18) 0%, transparent 70%);
-      pointer-events: none;
+    /* Profile photo */
+    .hero-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: 
+        0 0 0 8px var(--bg-deep),
+        0 0 40px rgba(124, 154, 146, 0.2);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 0.1s forwards;
+      transition: transform var(--transition), box-shadow var(--transition);
     }
 
-    .hero-inner { position: relative; z-index: 1; max-width: 900px; }
+    .hero-photo:hover {
+      transform: scale(1.02);
+      box-shadow: 
+        0 0 0 8px var(--bg-deep),
+        0 0 60px rgba(124, 154, 146, 0.3);
+    }
 
-    .hero-eyebrow {
+    .hero-greeting {
       font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--pulse);
+      font-size: 0.8rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 1.4rem;
-      display: flex; align-items: center; gap: 0.7rem;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 32px; height: 1px;
-      background: var(--pulse);
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 0.2s forwards;
     }
 
-    h1 {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.05;
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 400;
       letter-spacing: -0.02em;
-      margin-bottom: 1.6rem;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 0.4s forwards;
     }
-    h1 span { color: var(--cloud); }
 
-    .hero-sub {
-      font-size: 1.15rem;
+    .hero-title {
+      font-size: 1.1rem;
       font-weight: 300;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.65;
-      max-width: 560px;
-      margin-bottom: 2.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 0.6s forwards;
     }
 
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-philosophy {
+      max-width: 480px;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--text-muted);
+      padding: 1.5rem 2rem;
+      border-left: 2px solid var(--accent);
+      text-align: left;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 0.8s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 3.5rem;
+      display: flex;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease) 1s forwards;
+    }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.8rem 1.8rem;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      letter-spacing: 0.05em;
-      border-radius: 3px;
-      text-decoration: none;
-      transition: all 0.22s;
+      padding: 0.875rem 2rem;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 6px;
+      transition: all var(--transition);
       cursor: pointer;
+      border: none;
     }
+
     .btn-primary {
-      background: var(--cloud);
-      color: var(--white);
-      border: 1px solid var(--cloud);
+      background: var(--accent);
+      color: var(--bg-deep);
     }
-    .btn-primary:hover { background: var(--pulse); border-color: var(--pulse); }
+
+    .btn-primary:hover {
+      background: #8aa99f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(124, 154, 146, 0.2);
+    }
+
     .btn-ghost {
       background: transparent;
-      color: var(--white);
-      border: 1px solid rgba(255,255,255,0.25);
-    }
-    .btn-ghost:hover { border-color: var(--pulse); color: var(--pulse); }
-
-    /* ── STATS TICKER ─────────────────────────────────────────── */
-    .stats-bar {
-      display: flex; gap: 0;
-      border-top: 1px solid rgba(0,102,255,0.2);
-      border-bottom: 1px solid rgba(0,102,255,0.2);
-      background: rgba(0,102,255,0.05);
-      overflow: hidden;
-    }
-    .stat {
-      flex: 1;
-      padding: 2rem 2.5rem;
-      border-right: 1px solid rgba(0,102,255,0.15);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: var(--mono);
-      font-size: 2.4rem;
-      font-weight: 600;
-      color: var(--pulse);
-      line-height: 1;
-      margin-bottom: 0.35rem;
-    }
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
     }
 
-    /* ── SECTIONS ─────────────────────────────────────────────── */
-    section { padding: 6rem 3rem; }
-    .section-tag {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--cloud);
-      letter-spacing: 0.18em;
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Breathing indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 0.6rem;
     }
-    h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      margin-bottom: 3rem;
-    }
-    .max-w { max-width: 1100px; margin: 0 auto; }
 
-    /* ── EXPERTISE ────────────────────────────────────────────── */
-    #expertise { background: var(--ink-soft); }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ── SECTION LAYOUT ──────────────────────────────────────── */
+    section {
+      padding: 7rem 3rem;
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .section-number {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── ABOUT SECTION ───────────────────────────────────────── */
+    #about {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .about-highlight {
+      padding: 1.25rem 1.5rem;
+      background: var(--accent-soft);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-primary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      padding: 1.75rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+    }
+
+    .stat-value {
+      font-family: var(--serif);
+      font-size: 2.25rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── EXPERTISE ───────────────────────────────────────────── */
+    #expertise {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+    }
 
     .expertise-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5px;
-      border: 1.5px solid rgba(0,102,255,0.15);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
+
     .exp-card {
       padding: 2rem;
-      background: var(--ink-soft);
-      border: 1.5px solid rgba(0,102,255,0.1);
-      transition: background 0.2s, border-color 0.2s;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all var(--transition);
     }
+
     .exp-card:hover {
-      background: rgba(0,102,255,0.07);
-      border-color: rgba(0,212,255,0.3);
+      background: var(--bg-elevated);
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
     }
+
     .exp-icon {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-soft);
+      border-radius: 10px;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
     }
+
     .exp-card h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      color: var(--white);
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
     }
+
     .exp-card p {
-      font-size: 0.83rem;
-      color: var(--muted);
-      line-height: 1.6;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
     }
+
     .tags {
-      margin-top: 0.9rem;
-      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
+
     .tag {
       font-family: var(--mono);
-      font-size: 0.67rem;
-      padding: 0.2rem 0.55rem;
-      border: 1px solid rgba(0,102,255,0.35);
-      border-radius: 2px;
-      color: var(--cloud);
-      letter-spacing: 0.04em;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.6rem;
+      background: var(--bg-deep);
+      border-radius: 4px;
+      color: var(--text-muted);
+      transition: all var(--transition);
     }
 
-    /* ── EXPERIENCE TIMELINE ──────────────────────────────────── */
-    #experience { background: var(--ink); }
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .tl-item {
-      display: grid;
-      grid-template-columns: 180px 1px 1fr;
-      gap: 0 2rem;
+    .exp-card:hover .tag {
+      background: var(--accent-soft);
+      color: var(--accent);
     }
-    .tl-date {
-      padding-top: 0.25rem;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-align: right;
-      line-height: 1.4;
+
+    /* ── JOURNEY / WORK ──────────────────────────────────────── */
+    #journey {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
     }
-    .tl-line {
+
+    .timeline {
       position: relative;
-      background: rgba(0,102,255,0.25);
+      max-width: 700px;
+      margin: 0 auto;
     }
-    .tl-line::before {
+
+    .timeline::before {
       content: '';
       position: absolute;
-      top: 0.3rem; left: 50%;
-      transform: translateX(-50%);
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--pulse);
-      box-shadow: 0 0 0 3px rgba(0,212,255,0.2);
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--border));
     }
-    .tl-content {
+
+    .tl-item {
+      position: relative;
+      padding-left: 3rem;
       padding-bottom: 3rem;
     }
-    .tl-role {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 0.15rem;
+
+    .tl-item:last-child {
+      padding-bottom: 0;
     }
-    .tl-company {
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      background: var(--bg-primary);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      transition: all var(--transition);
+    }
+
+    .tl-item:hover::before {
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .tl-date {
       font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--cloud);
-      margin-bottom: 0.9rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
     }
+
+    .tl-role {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .tl-company {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
     .tl-bullets {
       list-style: none;
-      display: flex; flex-direction: column; gap: 0.45rem;
     }
+
     .tl-bullets li {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.55;
-      padding-left: 1rem;
-      position: relative;
-    }
-    .tl-bullets li::before {
-      content: '›';
-      position: absolute; left: 0;
-      color: var(--cloud);
-    }
-
-    /* ── TOPICS ────────────────────────────────────────────────── */
-    #topics { background: var(--ink-soft); }
-    .topics-intro {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.6);
-      max-width: 560px;
-      margin-bottom: 2.5rem;
-      line-height: 1.65;
-    }
-    .topics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-    .topic-pill {
-      padding: 1rem 1.2rem;
-      border: 1px solid rgba(0,102,255,0.25);
-      border-radius: 4px;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.75);
-      background: rgba(0,102,255,0.04);
-      transition: all 0.2s;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .topic-pill:hover {
-      border-color: var(--pulse);
-      color: var(--white);
-      background: rgba(0,212,255,0.06);
-    }
-    .topic-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--cloud);
-      flex-shrink: 0;
-    }
-
-    /* ── BLOG ─────────────────────────────────────────────────── */
-    #blog { background: var(--ink); border-top: 1px solid rgba(0,102,255,0.12); }
-    .blog-intro {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.6);
-      max-width: 620px;
-      margin-bottom: 2.5rem;
-      line-height: 1.65;
-    }
-    .blog-card {
-      display: grid;
-      gap: 1rem;
-      padding: 2rem;
-      border: 1px solid rgba(0,102,255,0.2);
-      background: linear-gradient(135deg, rgba(0,102,255,0.08), rgba(255,255,255,0.02));
-      text-decoration: none;
-      transition: border-color 0.2s, transform 0.2s, background 0.2s;
-    }
-    .blog-card:hover {
-      border-color: rgba(0,212,255,0.45);
-      background: linear-gradient(135deg, rgba(0,102,255,0.14), rgba(0,212,255,0.05));
-      transform: translateY(-2px);
-    }
-    .blog-meta {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--pulse);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .blog-card h3 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--white);
-    }
-    .blog-card p {
       font-size: 0.9rem;
-      color: rgba(255,255,255,0.68);
+      color: var(--text-muted);
       line-height: 1.7;
-      max-width: 760px;
+      padding-left: 1.25rem;
+      position: relative;
+      margin-bottom: 0.4rem;
     }
-    .blog-link {
+
+    .tl-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* ── BLOG ────────────────────────────────────────────────── */
+    #writing {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+    }
+
+    .blog-card {
+      display: block;
+      padding: 2.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+      transition: all var(--transition);
+    }
+
+    .blog-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+    }
+
+    .blog-label {
       font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--cloud);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
     }
 
-    /* ── CONTACT ───────────────────────────────────────────────── */
-    #contact { background: var(--ink); border-top: 1px solid rgba(0,102,255,0.15); }
+    .blog-card h3 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
 
-    .contact-grid {
+    .blog-card p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap var(--transition);
+    }
+
+    .blog-card:hover .blog-link {
+      gap: 0.75rem;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────────── */
+    #connect {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+    }
+
+    .connect-content {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
       align-items: start;
     }
-    .contact-info h2 { margin-bottom: 1rem; }
-    .contact-info p {
-      color: rgba(255,255,255,0.55);
-      line-height: 1.7;
-      font-size: 0.95rem;
+
+    .connect-info h3 {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .connect-info p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
       margin-bottom: 2rem;
     }
-    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
-    .contact-link {
-      display: flex; align-items: center; gap: 0.8rem;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+
+    .connect-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    .contact-link:hover { color: var(--pulse); }
-    .contact-link-icon { color: var(--cloud); font-size: 1rem; width: 1.2rem; text-align: center; }
+
+    .connect-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+
+    .connect-link:hover {
+      color: var(--accent);
+    }
+
+    .connect-icon {
+      width: 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
 
     /* Form */
-    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-group label {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
     .form-group input,
     .form-group textarea,
     .form-group select {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(0,102,255,0.25);
-      border-radius: 3px;
-      padding: 0.75rem 1rem;
-      color: var(--white);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      color: var(--text-primary);
       font-family: var(--sans);
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
+      transition: all var(--transition);
     }
+
     .form-group input:focus,
     .form-group textarea:focus,
     .form-group select:focus {
-      border-color: var(--pulse);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
     }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-group select option { background: var(--ink-soft); }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .form-group select option {
+      background: var(--bg-elevated);
+    }
+
     .form-status {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      padding: 0.6rem 1rem;
-      border-radius: 3px;
+      font-size: 0.9rem;
+      padding: 1rem;
+      border-radius: 8px;
       display: none;
     }
-    .form-status.success { display: block; background: rgba(0,212,255,0.1); color: var(--pulse); border: 1px solid rgba(0,212,255,0.3); }
-    .form-status.error   { display: block; background: rgba(255,50,50,0.1); color: #ff6b6b; border: 1px solid rgba(255,50,50,0.3); }
 
-    /* ── FOOTER ────────────────────────────────────────────────── */
+    .form-status.success {
+      display: block;
+      background: rgba(124, 154, 146, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
     footer {
-      padding: 2rem 3rem;
-      border-top: 1px solid rgba(0,102,255,0.1);
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    footer p {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-    .footer-certs {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-    }
-    .cert-badge {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      padding: 0.25rem 0.6rem;
-      border: 1px solid rgba(0,102,255,0.3);
-      border-radius: 2px;
-      color: var(--cloud);
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
 
-    /* ── RESPONSIVE ─────────────────────────────────────────────── */
-    @media (max-width: 768px) {
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-quote {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .footer-certs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .cert {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.4rem 0.75rem;
+      background: var(--bg-elevated);
+      border-radius: 6px;
+      color: var(--text-muted);
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .expertise-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 800px) {
+      nav { padding: 1.25rem 2rem; }
+      section { padding: 5rem 2rem; }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .connect-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .expertise-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
+      .nav-links { display: none; }
       section { padding: 4rem 1.5rem; }
-      .hero { padding: 7rem 1.5rem 3rem; }
-      .stats-bar { flex-wrap: wrap; }
-      .stat { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(0,102,255,0.15); }
-      .tl-item { grid-template-columns: 1fr; }
-      .tl-date { text-align: left; }
-      .tl-line { display: none; }
-      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      footer { flex-direction: column; align-items: flex-start; }
+      
+      .hero { padding: 6rem 1.5rem; }
+      .hero-photo { width: 130px; height: 130px; }
+      .hero-philosophy { padding: 1rem 1.25rem; }
+      .hero-cta { flex-direction: column; width: 100%; }
+      .btn { width: 100%; justify-content: center; }
+      
+      .stats-grid { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero::before { animation: none; }
+      .scroll-line { animation: none; opacity: 0.5; }
+      .hero-greeting, .hero-name, .hero-title, .hero-philosophy, .hero-cta {
+        animation: none;
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">Sai Deekshith Golla</div>
   <ul class="nav-links">
-    <li><a href="#blog">Blog</a></li>
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#topics">Discuss</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#connect">Connect</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Available for roles &amp; conversations</div>
-    <h1>Cloud infrastructure<br/>that <span>actually scales.</span></h1>
-    <p class="hero-sub">
-      I'm Sai Deekshith Golla — Sr. Cloud DevOps Engineer with 10+ years building
-      resilient, secure platforms across Azure, AWS, and GCP. From Kubernetes to Terraform
-      to AI/ML pipelines, I architect systems that don't break at 3 AM.
-    </p>
-    <div class="hero-ctas">
-      <a href="jfrog_blog.html" class="btn btn-ghost">Read the latest blog</a>
-      <a href="#contact" class="btn btn-primary">↗ Get in touch</a>
-      <a href="#topics" class="btn btn-ghost">Browse discussion topics</a>
+  <img src="images/profile.jpeg" alt="Sai Deekshith Golla" class="hero-photo" />
+  <div class="hero-greeting">Welcome</div>
+  <h1 class="hero-name">Sai Deekshith Golla</h1>
+  <p class="hero-title">Cloud & DevOps Engineer · Building with intention</p>
+  
+  <blockquote class="hero-philosophy">
+    "I believe in building systems that are not just functional, but thoughtful — 
+    infrastructure that gives teams space to focus on what matters most."
+  </blockquote>
+  
+  <div class="hero-cta">
+    <a href="#about" class="btn btn-primary">Learn more</a>
+    <a href="#connect" class="btn btn-ghost">Get in touch</a>
+  </div>
+  
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <h2 class="section-title">About me</h2>
+      <p class="section-subtitle">A decade of building reliable, purposeful infrastructure</p>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Senior Cloud DevOps Engineer</strong> with over 10 years of experience 
+          architecting resilient platforms across <strong>Azure, AWS, and GCP</strong>. My approach 
+          is methodical — I believe the best infrastructure is invisible, allowing teams to 
+          focus entirely on building great products.
+        </p>
+        
+        <div class="about-highlight">
+          Currently at Zoetis Inc. in Charlotte, NC, leading multi-cloud infrastructure 
+          initiatives for pharmaceutical-grade workloads where reliability isn't optional.
+        </div>
+        
+        <p>
+          From Kubernetes orchestration to Terraform automation to AI/ML pipelines, 
+          I design systems built for the long term. I specialize in platform engineering, 
+          DevSecOps, and creating self-service capabilities that empower development teams 
+          to move faster with confidence.
+        </p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">10+</div>
+          <div class="stat-label">Years of experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3</div>
+          <div class="stat-label">Cloud platforms</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">50%</div>
+          <div class="stat-label">Faster deployments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">99.99%</div>
+          <div class="stat-label">Uptime achieved</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat">
-    <div class="stat-num">10+</div>
-    <div class="stat-label">Years in cloud & DevOps</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">3</div>
-    <div class="stat-label">Major cloud platforms</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">50%</div>
-    <div class="stat-label">Faster provisioning via IaC</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">99.99%</div>
-    <div class="stat-label">Uptime on mission-critical AKS</div>
-  </div>
-</div>
-
-<!-- EXPERTISE -->
 <section id="expertise">
-  <div class="max-w">
-    <div class="section-tag">// what I do</div>
-    <h2>Areas of Expertise</h2>
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <h2 class="section-title">What I do</h2>
+      <p class="section-subtitle">Focused expertise across the cloud landscape</p>
+    </div>
+    
     <div class="expertise-grid">
-
       <div class="exp-card">
         <div class="exp-icon">☁️</div>
         <h3>Multi-Cloud Architecture</h3>
-        <p>Designing and managing highly available, cost-efficient infrastructure across Azure, AWS, and GCP for regulated industries including pharma and life sciences.</p>
+        <p>Designing highly available infrastructure across Azure, AWS, and GCP for regulated industries.</p>
         <div class="tags">
-          <span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">HIPAA</span><span class="tag">SOC 2</span>
+          <span class="tag">Azure</span>
+          <span class="tag">AWS</span>
+          <span class="tag">GCP</span>
         </div>
       </div>
-
+      
       <div class="exp-card">
         <div class="exp-icon">⚙️</div>
         <h3>Infrastructure as Code</h3>
-        <p>Automating cloud provisioning with Terraform, ARM Templates, and CloudFormation — cutting deployment times by up to 50% through reusable, battle-tested modules.</p>
+        <p>Automating cloud provisioning with Terraform, ARM Templates, and CloudFormation.</p>
         <div class="tags">
-          <span class="tag">Terraform</span><span class="tag">ARM</span><span class="tag">CloudFormation</span>
+          <span class="tag">Terraform</span>
+          <span class="tag">ARM</span>
+          <span class="tag">CloudFormation</span>
         </div>
       </div>
-
+      
+      <div class="exp-card">
+        <div class="exp-icon">🔷</div>
+        <h3>Kubernetes</h3>
+        <p>Full lifecycle management of AKS and EKS clusters with security-first approach.</p>
+        <div class="tags">
+          <span class="tag">AKS</span>
+          <span class="tag">EKS</span>
+          <span class="tag">Helm</span>
+        </div>
+      </div>
+      
       <div class="exp-card">
         <div class="exp-icon">🔄</div>
-        <h3>CI/CD &amp; DevOps Pipelines</h3>
-        <p>Building end-to-end deployment pipelines with security scanning, policy enforcement, and artifact management — from code commit to production container.</p>
+        <h3>CI/CD Pipelines</h3>
+        <p>End-to-end deployment pipelines with security scanning and policy enforcement.</p>
         <div class="tags">
-          <span class="tag">GitHub Actions</span><span class="tag">Azure DevOps</span><span class="tag">Jenkins</span><span class="tag">JFrog</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Azure DevOps</span>
         </div>
       </div>
-
+      
       <div class="exp-card">
-        <div class="exp-icon">🐳</div>
-        <h3>Kubernetes &amp; Containers</h3>
-        <p>Full lifecycle management of AKS and EKS clusters — Helm deployments, NGINX ingress, HPA scaling, and container security scanning across 50+ pipelines.</p>
+        <div class="exp-icon">🛡️</div>
+        <h3>Security & Compliance</h3>
+        <p>Zero-trust architectures, Private Link endpoints, and vulnerability management.</p>
         <div class="tags">
-          <span class="tag">AKS</span><span class="tag">EKS</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">ECS/Fargate</span>
+          <span class="tag">Entra ID</span>
+          <span class="tag">Wiz</span>
+          <span class="tag">Snyk</span>
         </div>
       </div>
-
-      <div class="exp-card">
-        <div class="exp-icon">🔒</div>
-        <h3>Security &amp; Compliance</h3>
-        <p>Implementing zero-trust network architectures, Private Link endpoints, Key Vault integration, and RBAC policies. Active remediation using Wiz and Snyk findings.</p>
-        <div class="tags">
-          <span class="tag">Entra ID</span><span class="tag">WAF</span><span class="tag">KMS</span><span class="tag">Wiz</span><span class="tag">Snyk</span>
-        </div>
-      </div>
-
+      
       <div class="exp-card">
         <div class="exp-icon">🤖</div>
-        <h3>AI/ML Platform Engineering</h3>
-        <p>Building CI/CD pipelines for ML model deployments, integrating MCP agents, and deploying self-service chatbots that cut request handling time by 50%.</p>
+        <h3>Platform Engineering</h3>
+        <p>Self-service platforms and AI-powered automation for developer productivity.</p>
         <div class="tags">
-          <span class="tag">Azure OpenAI</span><span class="tag">MCP</span><span class="tag">Azure ML</span><span class="tag">GitHub Copilot</span>
+          <span class="tag">ServiceNow</span>
+          <span class="tag">Azure OpenAI</span>
         </div>
       </div>
-
-      <div class="exp-card">
-        <div class="exp-icon">📊</div>
-        <h3>Observability &amp; Monitoring</h3>
-        <p>Creating comprehensive monitoring solutions with Azure Monitor, Log Analytics, Splunk, and CloudWatch — reducing troubleshooting time by 25%.</p>
-        <div class="tags">
-          <span class="tag">Azure Monitor</span><span class="tag">Splunk</span><span class="tag">CloudWatch</span><span class="tag">Stackdriver</span>
-        </div>
-      </div>
-
-      <div class="exp-card">
-        <div class="exp-icon">📜</div>
-        <h3>Scripting &amp; Automation</h3>
-        <p>Reducing manual interventions by 40% through intelligent automation using PowerShell, Bash, Python, and configuration management via Ansible and Chef.</p>
-        <div class="tags">
-          <span class="tag">PowerShell</span><span class="tag">Python</span><span class="tag">Bash</span><span class="tag">Ansible</span><span class="tag">Chef</span>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="max-w">
-    <div class="section-tag">// where I've worked</div>
-    <h2>Experience</h2>
+<section id="journey">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <h2 class="section-title">My journey</h2>
+      <p class="section-subtitle">Growing through thoughtful challenges</p>
+    </div>
+    
     <div class="timeline">
-
       <div class="tl-item">
-        <div class="tl-date">Jun 2022<br/>Present</div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <div class="tl-role">Sr. Cloud DevOps Engineer</div>
-          <div class="tl-company">Zoetis Inc. — Charlotte, NC</div>
-          <ul class="tl-bullets">
-            <li>Led multi-cloud infrastructure on Azure and AWS using Terraform for pharmaceutical-grade workloads.</li>
-            <li>Developed MCP agents and a self-service chatbot, cutting resource provisioning request time by 50%.</li>
-            <li>Built a "One-Touch" self-service IaaS/PaaS platform via ServiceNow, empowering 20+ teams.</li>
-            <li>Managed AKS full lifecycle with 99.99% uptime for mission-critical applications.</li>
-            <li>Reduced cloud spend by 20% through resource tagging, reserved instances, and automation scripts.</li>
-            <li>Drove CI/CD pipelines for ML model deployments to Azure ML, increasing deploy frequency by 30%.</li>
-          </ul>
-        </div>
+        <div class="tl-date">2022 — Present</div>
+        <div class="tl-role">Sr. Cloud DevOps Engineer</div>
+        <div class="tl-company">Zoetis Inc. · Charlotte, NC</div>
+        <ul class="tl-bullets">
+          <li>Leading multi-cloud infrastructure on Azure and AWS using Terraform</li>
+          <li>Developed MCP agents and self-service chatbot, cutting provisioning time by 50%</li>
+          <li>Built "One-Touch" self-service IaaS/PaaS platform via ServiceNow</li>
+          <li>Managing AKS with 99.99% uptime for mission-critical applications</li>
+        </ul>
       </div>
-
+      
       <div class="tl-item">
-        <div class="tl-date">Feb 2020<br/>Jun 2022</div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <div class="tl-role">Sr. Cloud Platform Engineer</div>
-          <div class="tl-company">Johnson Controls Inc. — Milwaukee, WI</div>
-          <ul class="tl-bullets">
-            <li>Migrated 30+ legacy private cloud apps to Azure and GCP, boosting scalability by 40%.</li>
-            <li>Automated end-to-end provisioning of 50+ IaaS/PaaS services via ServiceNow ITSM tickets.</li>
-            <li>Implemented Disaster Recovery using Azure Site Recovery for business continuity.</li>
-            <li>Led GCP onboarding as part of the enterprise Hybrid Cloud strategy.</li>
-          </ul>
-        </div>
+        <div class="tl-date">2020 — 2022</div>
+        <div class="tl-role">Sr. Cloud Platform Engineer</div>
+        <div class="tl-company">Johnson Controls Inc. · Milwaukee, WI</div>
+        <ul class="tl-bullets">
+          <li>Migrated 30+ legacy apps to Azure and GCP, boosting scalability by 40%</li>
+          <li>Automated provisioning of 50+ IaaS/PaaS services via ServiceNow</li>
+          <li>Implemented Disaster Recovery using Azure Site Recovery</li>
+        </ul>
       </div>
-
+      
       <div class="tl-item">
-        <div class="tl-date">Nov 2017<br/>Feb 2020</div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <div class="tl-role">Cloud Engineer</div>
-          <div class="tl-company">Virginia Tech — Blacksburg, VA</div>
-          <ul class="tl-bullets">
-            <li>Designed multi-tier AWS architectures for university production web applications.</li>
-            <li>Implemented RDS Multi-AZ with Secrets Manager for fault-tolerant database connectivity.</li>
-            <li>Built containerized testing pipelines across local, dev, pre-prod, and production environments.</li>
-            <li>Created Splunk dashboards for application log monitoring and troubleshooting.</li>
-          </ul>
-        </div>
+        <div class="tl-date">2017 — 2020</div>
+        <div class="tl-role">Cloud Engineer</div>
+        <div class="tl-company">Virginia Tech · Blacksburg, VA</div>
+        <ul class="tl-bullets">
+          <li>Designed multi-tier AWS architectures for production web applications</li>
+          <li>Implemented RDS Multi-AZ with Secrets Manager for fault tolerance</li>
+          <li>Built containerized testing pipelines across multiple environments</li>
+        </ul>
       </div>
-
-      <div class="tl-item">
-        <div class="tl-date">Apr 2017<br/>Nov 2017</div>
-        <div class="tl-line"></div>
-        <div class="tl-content">
-          <div class="tl-role">DevOps Intern</div>
-          <div class="tl-company">Cloud Resources Inc. — Irving, TX</div>
-          <ul class="tl-bullets">
-            <li>Wrote Terraform templates for AWS staging and production environments.</li>
-            <li>Built CloudWatch dashboards, alarms, and SNS notifications for EC2 auto-scaling.</li>
-          </ul>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- TOPICS -->
-<section id="topics">
-  <div class="max-w">
-    <div class="section-tag">// let's talk</div>
-    <h2>Open for Discussion</h2>
-    <p class="topics-intro">
-      Whether you're evaluating candidates, looking to learn, or want to geek out over cloud architecture — 
-      I'm happy to have a conversation. Here's what I can go deep on:
-    </p>
-    <div class="topics-grid">
-      <div class="topic-pill"><span class="topic-dot"></span>Kubernetes & AKS cost optimization</div>
-      <div class="topic-pill"><span class="topic-dot"></span>Terraform module design patterns</div>
-      <div class="topic-pill"><span class="topic-dot"></span>Zero-trust network architecture</div>
-      <div class="topic-pill"><span class="topic-dot"></span>Multi-cloud migration strategy</div>
-      <div class="topic-pill"><span class="topic-dot"></span>CI/CD pipeline best practices</div>
-      <div class="topic-pill"><span class="topic-dot"></span>AI/ML deployment on Azure</div>
-      <div class="topic-pill"><span class="topic-dot"></span>HIPAA & SOC 2 compliance in cloud</div>
-      <div class="topic-pill"><span class="topic-dot"></span>Platform engineering & self-service</div>
-      <div class="topic-pill"><span class="topic-dot"></span>MCP agent integration</div>
-      <div class="topic-pill"><span class="topic-dot"></span>Cloud FinOps & spend reduction</div>
-      <div class="topic-pill"><span class="topic-dot"></span>Observability & SRE practices</div>
-      <div class="topic-pill"><span class="topic-dot"></span>DevSecOps & supply chain security</div>
+<section id="writing">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">04</div>
+      <h2 class="section-title">Writing</h2>
+      <p class="section-subtitle">Sharing what I've learned along the way</p>
     </div>
-    <a href="#contact" class="btn btn-primary">Start a conversation →</a>
-  </div>
-</section>
-
-<!-- BLOG -->
-<section id="blog">
-  <div class="max-w">
-    <div class="section-tag">// recent writing</div>
-    <h2>Blog</h2>
-    <p class="blog-intro">
-      Practical notes from hands-on platform engineering work, with a focus on Kubernetes,
-      DevSecOps, and production-grade cloud delivery.
-    </p>
+    
     <a href="jfrog_blog.html" class="blog-card">
-      <div class="blog-meta">Featured article</div>
-      <h3>Deploying JFrog Artifactory &amp; Xray on AKS</h3>
-      <p>
-        A deployment walkthrough covering how to run JFrog Artifactory and Xray on Azure Kubernetes Service,
-        including ingress, storage, security scanning, and production-minded operational considerations.
-      </p>
-      <span class="blog-link">Open article →</span>
+      <div class="blog-label">Featured Article</div>
+      <h3>Deploying JFrog Artifactory & Xray on AKS</h3>
+      <p>A production-ready walkthrough for standing up JFrog Artifactory and Xray in Azure Kubernetes Service, backed by a PaaS PostgreSQL database and Azure Blob Storage.</p>
+      <span class="blog-link">Read article →</span>
     </a>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="max-w">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="section-tag">// reach out</div>
-        <h2>Let's Connect</h2>
+<section id="connect">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">05</div>
+      <h2 class="section-title">Let's connect</h2>
+      <p class="section-subtitle">I'd love to hear from you</p>
+    </div>
+    
+    <div class="connect-content">
+      <div class="connect-info">
+        <h3>Get in touch</h3>
         <p>
-          Open to senior cloud/DevOps roles, solution architect positions, and consulting engagements. 
-          Also happy to chat about cloud topics, career advice, or architecture reviews — just say what's on your mind.
+          Open to senior cloud/DevOps roles, solution architect positions, and consulting 
+          engagements. Happy to discuss cloud architecture, career advice, or just have a 
+          thoughtful conversation about technology.
         </p>
-        <div class="contact-links">
-          <a href="mailto:Saideekshith93@gmail.com" class="contact-link">
-            <span class="contact-link-icon">✉</span> Saideekshith93@gmail.com
+        
+        <div class="connect-links">
+          <a href="mailto:Saideekshith93@gmail.com" class="connect-link">
+            <span class="connect-icon">✉</span>
+            Saideekshith93@gmail.com
           </a>
-          <a href="https://linkedin.com/in/saig1993" target="_blank" rel="noopener" class="contact-link">
-            <span class="contact-link-icon">in</span> linkedin.com/in/saig1993
+          <a href="https://linkedin.com/in/saig1993" target="_blank" rel="noopener" class="connect-link">
+            <span class="connect-icon">in</span>
+            linkedin.com/in/saig1993
           </a>
-          <span class="contact-link">
-            <span class="contact-link-icon">📍</span> Charlotte, NC
+          <span class="connect-link">
+            <span class="connect-icon">◉</span>
+            Charlotte, NC
           </span>
         </div>
       </div>
-
-      <div>
-        <form class="contact-form" id="contactForm">
+      
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
           <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" id="fname" placeholder="Jane Smith" required />
+            <label>Name</label>
+            <input type="text" id="fname" placeholder="Your name" required />
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" id="femail" placeholder="jane@company.com" required />
+            <input type="email" id="femail" placeholder="your@email.com" required />
           </div>
-          <div class="form-group">
-            <label>Reason for reaching out</label>
-            <select id="freason">
-              <option value="">— Select one —</option>
-              <option>Job opportunity</option>
-              <option>Consulting inquiry</option>
-              <option>Technical discussion</option>
-              <option>Architecture review</option>
-              <option>Learning / mentorship</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea id="fmessage" placeholder="What's on your mind?" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send message →</button>
-          <div class="form-status" id="formStatus"></div>
-        </form>
-      </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Subject</label>
+          <select id="freason">
+            <option value="">Select a topic</option>
+            <option>Job opportunity</option>
+            <option>Consulting inquiry</option>
+            <option>Technical discussion</option>
+            <option>Architecture review</option>
+            <option>Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="fmessage" placeholder="What's on your mind?" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Send message</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2025 Sai Deekshith Golla · Charlotte, NC</p>
-  <div class="footer-certs">
-    <span class="cert-badge">AWS SA Associate</span>
-    <span class="cert-badge">AWS SysOps Associate</span>
-    <span class="cert-badge">MLOps Engineer Associate</span>
-    <span class="cert-badge">MBA · Ottawa University</span>
-    <span class="cert-badge">MS EE · UMKC</span>
+  <div class="footer-content">
+    <p class="footer-quote">"Focus is about saying no to a hundred other good ideas."</p>
+    
+    <div class="footer-certs">
+      <span class="cert">AWS SA Associate</span>
+      <span class="cert">AWS SysOps Associate</span>
+      <span class="cert">MLOps Engineer Associate</span>
+      <span class="cert">MBA · Ottawa University</span>
+      <span class="cert">MS EE · UMKC</span>
+    </div>
+    
+    <p>© 2025 Sai Deekshith Golla</p>
   </div>
 </footer>
 
 <script>
-  // Smooth form UX — mailto fallback since no backend is present
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const name    = document.getElementById('fname').value.trim();
@@ -841,7 +1160,11 @@
     const status  = document.getElementById('formStatus');
 
     if (!name || !email || !message) {
-      status.className = 'form-status error';
+      status.className = 'form-status';
+      status.style.display = 'block';
+      status.style.background = 'rgba(239, 68, 68, 0.1)';
+      status.style.color = '#ef4444';
+      status.style.border = '1px solid rgba(239, 68, 68, 0.2)';
       status.textContent = 'Please fill in all required fields.';
       return;
     }
